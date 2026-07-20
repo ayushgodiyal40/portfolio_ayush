@@ -83,8 +83,8 @@ export default function AIChat() {
       const errorMsg: ChatMessage = {
         sender: "ai",
         text: err.message && err.message !== "Failed to contact server API."
-          ? `API_TRANSMISSION_ERROR: ${err.message}`
-          : "API_TRANSMISSION_ERROR: Connection to the host server was lost. Please verify that the server is online and try sending again.",
+          ? `API_TRANSMISSION_ERROR: ${err.message}. (If you are viewing this in the Google AI Studio preview, please click 'Open in New Tab' to bypass iframe cookie blocks!)`
+          : "API_TRANSMISSION_ERROR: Connection to the host server was lost. If you are viewing this in the Google AI Studio preview, please open the application in a new browser tab to allow required authentication cookies. If deployed to Vercel, please make sure you have configured your GEMINI_API_KEY environment variable in the Vercel Project Settings.",
         timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
       };
       setMessages((prev) => [...prev, errorMsg]);
