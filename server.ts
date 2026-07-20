@@ -6,7 +6,6 @@
 import express from "express";
 import path from "path";
 import dotenv from "dotenv";
-import { createServer as createViteServer } from "vite";
 import { GoogleGenAI } from "@google/genai";
 
 // Load environment variables
@@ -225,6 +224,7 @@ async function startServer() {
   // Vite Integration & Static Asset serving
   if (process.env.NODE_ENV !== "production") {
     console.log("Mounting integrated Vite middleware for Dev environment...");
+    const { createServer: createViteServer } = await import("vite");
     const vite = await createViteServer({
       server: { middlewareMode: true },
       appType: "spa",
