@@ -190,28 +190,70 @@ app.post("/api/chat", async (req, res) => {
   try {
     // Map history received from frontend client to format required by @google/genai
     const parsedHistory = Array.isArray(history) ? history : [];
+    
+    // Ensure history starts with "user" and alternates roles correctly for the Gemini API
+    const sanitizedHistory: any[] = [];
+    let expectedRole = "user";
+    
+    for (const turn of parsedHistory) {
+      if (turn.role === expectedRole && turn.parts?.[0]?.text) {
+        sanitizedHistory.push({
+          role: turn.role,
+          parts: [{ text: turn.parts[0].text }]
+        });
+        expectedRole = expectedRole === "user" ? "model" : "user";
+      }
+    }
+
     const formattedContents = [
-      ...parsedHistory,
+      ...sanitizedHistory,
       { role: "user", parts: [{ text: message }] }
     ];
 
-    // Request text generation from gemini-3.5-flash
-    const response = await ai.models.generateContent({
-      model: "gemini-3.5-flash",
-      contents: formattedContents,
-      config: {
-        systemInstruction: SYSTEM_INSTRUCTION,
-        temperature: 0.7,
-      },
-    });
+    // Try gemini-3.5-flash with fallback to gemini-3.1-flash-lite and gemini-flash-latest to handle 503 high demand issues.
+    let response;
+    try {
+      console.log("Attempting generation using gemini-3.5-flash...");
+      response = await ai.models.generateContent({
+        model: "gemini-3.5-flash",
+        contents: formattedContents,
+        config: {
+          systemInstruction: SYSTEM_INSTRUCTION,
+          temperature: 0.7,
+        },
+      });
+    } catch (error: any) {
+      console.warn("gemini-3.5-flash failed or is experiencing high demand. Falling back to gemini-3.1-flash-lite...", error);
+      try {
+        response = await ai.models.generateContent({
+          model: "gemini-3.1-flash-lite",
+          contents: formattedContents,
+          config: {
+            systemInstruction: SYSTEM_INSTRUCTION,
+            temperature: 0.7,
+          },
+        });
+      } catch (error2: any) {
+        console.warn("gemini-3.1-flash-lite failed. Falling back to gemini-flash-latest...", error2);
+        response = await ai.models.generateContent({
+          model: "gemini-flash-latest",
+          contents: formattedContents,
+          config: {
+            systemInstruction: SYSTEM_INSTRUCTION,
+            temperature: 0.7,
+          },
+        });
+      }
+    }
 
     const replyText = response.text || "I was unable to synthesize an answer right now.";
     return res.json({ reply: replyText });
   } catch (error: any) {
     console.error("Gemini API invocation failure:", error);
+    const errorMessage = error?.message || String(error);
     return res.status(500).json({
       error: "Internal LLM pipeline crash.",
-      reply: "TERMINAL_TIMEOUT: Unable to process request. The core neural pipeline is currently experiencing heavy overhead. Please try again."
+      reply: `TERMINAL_TIMEOUT: Unable to process request. Gemini API returned: "${errorMessage}". Please check your configuration.`
     });
   }
 });

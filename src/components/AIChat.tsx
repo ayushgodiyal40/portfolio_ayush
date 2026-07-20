@@ -62,7 +62,14 @@ export default function AIChat() {
       });
 
       if (!response.ok) {
-        throw new Error("Failed to contact server API.");
+        let errMsg = "Failed to contact server API.";
+        try {
+          const errData = await response.json();
+          if (errData && (errData.reply || errData.error)) {
+            errMsg = errData.reply || errData.error;
+          }
+        } catch (_) {}
+        throw new Error(errMsg);
       }
 
       const data = await response.json();
@@ -72,10 +79,12 @@ export default function AIChat() {
         timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
       };
       setMessages((prev) => [...prev, aiMsg]);
-    } catch (err) {
+    } catch (err: any) {
       const errorMsg: ChatMessage = {
         sender: "ai",
-        text: "API_TRANSMISSION_ERROR: Connection to the host server was lost. Please verify that the server is online and try sending again.",
+        text: err.message && err.message !== "Failed to contact server API."
+          ? `API_TRANSMISSION_ERROR: ${err.message}`
+          : "API_TRANSMISSION_ERROR: Connection to the host server was lost. Please verify that the server is online and try sending again.",
         timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
       };
       setMessages((prev) => [...prev, errorMsg]);
