@@ -62,11 +62,21 @@ export default function AIChat() {
       });
 
       if (!response.ok) {
-        let errMsg = "Failed to contact server API.";
+        let errMsg = `Server returned HTTP ${response.status}: ${response.statusText}`;
         try {
-          const errData = await response.json();
-          if (errData && (errData.reply || errData.error)) {
-            errMsg = errData.reply || errData.error;
+          const contentType = response.headers.get("content-type");
+          if (contentType && contentType.includes("application/json")) {
+            const errData = await response.json();
+            if (errData && (errData.reply || errData.error)) {
+              errMsg = errData.reply || errData.error;
+            }
+          } else {
+            const rawText = await response.text();
+            if (rawText && rawText.length > 0) {
+              // Extract first 150 chars of text to avoid flooding the UI but still provide debug info
+              const textSnippet = rawText.trim().substring(0, 150).replace(/<[^>]*>/g, " ");
+              errMsg = `HTTP ${response.status} (${response.statusText}): ${textSnippet}...`;
+            }
           }
         } catch (_) {}
         throw new Error(errMsg);
