@@ -1,0 +1,6 @@
+{
+  "name": "Ayush Godiyal - High-Contrast Systems Portfolio",
+  "description": "Interactive WebGL digital console portfolio of Ayush Godiyal, a BTech Computer Science & Engineering systems developer and SDE architect, featuring Gemini server-side chatbot integration.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
