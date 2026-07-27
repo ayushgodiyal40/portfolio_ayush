@@ -35,7 +35,7 @@ import { SpiralAnimation } from "./components/ui/spiral-animation";
 import ScrambleText from "./components/ScrambleText";
 import Timeline from "./components/Timeline";
 import Projects from "./components/Projects";
-import AIChat from "./components/AIChat";
+// import AIChat from "./components/AIChat";
 
 const ROTATING_WORDS = ["PURPOSE", "IMPACT", "INTENT", "PRECISION", "EFFICIENCY"];
 
@@ -241,7 +241,7 @@ export default function App() {
             { label: "SKILLS", ref: skillsRef },
             { label: "ARCHIVES", ref: projectsRef },
             { label: "TIMELINE", ref: timelineRef },
-            { label: "AI_AGENT", ref: aiRef },
+            // { label: "AI_AGENT", ref: aiRef },
             { label: "CONTACT", ref: contactRef },
           ].map((lnk) => (
             <button
@@ -290,13 +290,13 @@ export default function App() {
           id="hero-screen-section"
         >
           {/* Content Wrapper */}
-          <div className="flex-1 flex flex-col lg:flex-row items-center justify-center lg:justify-between max-w-5xl mx-auto w-full pt-8 md:pt-12 lg:pb-16 z-20 relative gap-8 lg:gap-0">
+          <div className="flex-1 flex flex-col lg:flex-row items-center justify-center lg:justify-between max-w-6xl xl:max-w-7xl mx-auto w-full pt-8 md:pt-12 lg:pb-16 z-20 relative gap-8 lg:gap-0">
             
             {/* Headline and bio content */}
-            <div className="w-full lg:max-w-[55%] xl:max-w-[60%] flex flex-col justify-center text-center lg:text-left select-text space-y-6">
+            <div className="w-full lg:max-w-[48%] xl:max-w-[50%] flex flex-col justify-center text-center lg:text-left select-text space-y-6">
               <div className="space-y-1">
                 <h1
-                  className="font-display uppercase text-4xl sm:text-6xl md:text-6xl lg:text-[80px] leading-none tracking-tighter"
+                  className="font-display uppercase text-4xl sm:text-6xl md:text-6xl lg:text-[76px] xl:text-[84px] leading-none tracking-tighter"
                   style={{
                     WebkitTextStroke: isDarkMode ? "1.5px rgba(255, 255, 255, 0.9)" : "1.5px rgba(0, 0, 0, 0.9)",
                     color: "transparent",
@@ -304,13 +304,13 @@ export default function App() {
                 >
                   ENGINEER WITH
                 </h1>
-                <h2 className="font-display uppercase text-5xl sm:text-7xl md:text-7xl lg:text-[105px] leading-none tracking-tight text-[#CCFF00]">
+                <h2 className="font-display uppercase text-5xl sm:text-7xl md:text-7xl lg:text-[95px] xl:text-[110px] leading-none tracking-tight text-[#CCFF00]">
                   <ScrambleText text={ROTATING_WORDS[currentWordIdx]} key={currentWordIdx} />
                 </h2>
               </div>
 
               {/* Typewriter bio */}
-              <div className="max-w-lg md:max-w-xl mx-auto lg:mx-0 min-h-[64px]">
+              <div className="max-w-lg lg:max-w-md xl:max-w-lg mx-auto lg:mx-0 min-h-[64px]">
                 <AnimatePresence mode="wait">
                   <motion.p
                     key={bioKey}
@@ -332,8 +332,8 @@ export default function App() {
               </div>
             </div>
 
-            {/* Portrait Image Layer (Normal flex flow on mobile & tablet, Absolute on Laptop/Desktop) */}
-            <div className="relative lg:absolute lg:right-4 xl:right-12 lg:bottom-12 xl:bottom-16 z-30 pointer-events-auto flex flex-col items-center justify-end w-full lg:w-auto">
+            {/* Portrait Image Layer (Normal flex flow on mobile & tablet, Absolute on Laptop/Desktop shifted right) */}
+            <div className="relative lg:absolute lg:right-0 xl:right-4 lg:bottom-10 xl:bottom-14 z-30 pointer-events-auto flex flex-col items-center justify-end w-full lg:w-auto">
               <div className="relative flex flex-col items-center overflow-visible pb-4 lg:pb-0">
                 <img
                   src={portraitUrl}
@@ -528,7 +528,7 @@ export default function App() {
         </section>
 
 
-        {/* SECTION 5: AI CAREER AGENT CONSOLE */}
+        {/* SECTION 5: AI CAREER AGENT CONSOLE (COMMENTED OUT)
         <section
           ref={aiRef}
           className="py-24 px-6 max-w-5xl mx-auto w-full border-b border-white/5"
@@ -550,6 +550,7 @@ export default function App() {
             <AIChat />
           </div>
         </section>
+        */}
 
 
         {/* SECTION 6: CONTACT TERMINAL */}
