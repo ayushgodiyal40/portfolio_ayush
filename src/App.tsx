@@ -286,137 +286,142 @@ export default function App() {
         {/* SECTION 1: HERO VIEWPORT SCREEN */}
         <section
           ref={heroRef}
-          className="min-h-[calc(100vh-68px)] relative flex flex-col justify-between px-6 pb-12 overflow-hidden border-b border-white/5"
+          className="min-h-[calc(100vh-68px)] relative flex flex-col justify-between px-6 pb-8 lg:pb-12 border-b border-white/5"
           id="hero-screen-section"
         >
-          {/* Absolute Right-aligned Image Layer */}
-          <div className="absolute right-4 sm:right-8 md:right-12 lg:right-20 bottom-8 sm:bottom-12 md:bottom-16 lg:bottom-20 z-30 pointer-events-none flex items-end justify-end">
-            <div className="relative flex flex-col items-center overflow-visible pb-12 md:pb-0 pointer-events-auto">
-              <img
-                src={portraitUrl}
-                alt="Ayush Godiyal Model"
-                referrerPolicy="no-referrer"
-                className={`h-[35vh] sm:h-[40vh] md:h-[45vh] lg:h-[52vh] object-contain transition-transform duration-700 ease-out select-none pointer-events-auto cursor-pointer scale-[1.01] hover:scale-[1.04] ${
-                  isDarkMode
-                    ? "brightness-95 contrast-125 drop-shadow-[0_15px_30px_rgba(0,0,0,0.65)]"
-                    : "brightness-105 contrast-110 drop-shadow-[0_15px_30px_rgba(0,0,0,0.1)]"
-                }`}
-                onError={(e) => {
-                  // Fallback if user's custom URL fails
-                  e.currentTarget.src = "https://lh3.googleusercontent.com/d/18cU7ked8bXFj--Zt_sWEpGlOdO823fyE=w1000";
-                }}
-              />
-
-              {/* Social Media Handles under Photo */}
-              <div className="mt-4 flex items-center justify-center gap-3 z-20">
-                <a
-                  href="mailto:ayushgodiyal40@gmail.com"
-                  className="group flex items-center justify-center w-9 h-9 rounded-full bg-[#EA4335]/15 border border-[#EA4335]/40 hover:border-[#EA4335] hover:bg-[#EA4335]/30 hover:shadow-[0_0_12px_rgba(234,67,53,0.4)] transition-all duration-300"
-                  title="Email: ayushgodiyal40@gmail.com"
-                  target="_blank"
-                  rel="noreferrer"
+          {/* Content Wrapper */}
+          <div className="flex-1 flex flex-col lg:flex-row items-center justify-center lg:justify-between max-w-5xl mx-auto w-full pt-8 md:pt-12 lg:pb-16 z-20 relative gap-8 lg:gap-0">
+            
+            {/* Headline and bio content */}
+            <div className="w-full lg:max-w-[55%] xl:max-w-[60%] flex flex-col justify-center text-center lg:text-left select-text space-y-6">
+              <div className="space-y-1">
+                <h1
+                  className="font-display uppercase text-4xl sm:text-6xl md:text-6xl lg:text-[80px] leading-none tracking-tighter"
+                  style={{
+                    WebkitTextStroke: isDarkMode ? "1.5px rgba(255, 255, 255, 0.9)" : "1.5px rgba(0, 0, 0, 0.9)",
+                    color: "transparent",
+                  }}
                 >
-                  <Mail className="w-4 h-4 text-[#EA4335] group-hover:scale-110 transition-transform" />
-                </a>
-                <a
-                  href="https://github.com/ayushgodiyal40"
-                  className="group flex items-center justify-center w-9 h-9 rounded-full bg-white/15 border border-white/40 hover:border-white hover:bg-white/30 hover:shadow-[0_0_12px_rgba(255,255,255,0.4)] transition-all duration-300"
-                  title="GitHub: ayushgodiyal40"
-                  target="_blank"
-                  rel="noreferrer"
-                >
-                  <Github className="w-4 h-4 text-white group-hover:scale-110 transition-transform" />
-                </a>
-                <a
-                  href="https://www.linkedin.com/in/ayush-godiyal-0b99a4285/"
-                  className="group flex items-center justify-center w-9 h-9 rounded-full bg-[#0077B5]/15 border border-[#0077B5]/40 hover:border-[#0077B5] hover:bg-[#0077B5]/30 hover:shadow-[0_0_12px_rgba(0,119,181,0.4)] transition-all duration-300"
-                  title="LinkedIn: Ayush Godiyal"
-                  target="_blank"
-                  rel="noreferrer"
-                >
-                  <Linkedin className="w-4 h-4 text-[#0077B5] group-hover:scale-110 transition-transform" />
-                </a>
-                <a
-                  href="https://x.com/AyushGodiy31814"
-                  className="group flex items-center justify-center w-9 h-9 rounded-full bg-[#1DA1F2]/15 border border-[#1DA1F2]/40 hover:border-[#1DA1F2] hover:bg-[#1DA1F2]/30 hover:shadow-[0_0_12px_rgba(29,161,242,0.4)] transition-all duration-300"
-                  title="Twitter / X: @AyushGodiy31814"
-                  target="_blank"
-                  rel="noreferrer"
-                >
-                  <Twitter className="w-4 h-4 text-[#1DA1F2] group-hover:scale-110 transition-transform" />
-                </a>
-                <a
-                  href="https://www.instagram.com/ayush_.godiyal/"
-                  className="group flex items-center justify-center w-9 h-9 rounded-full bg-[#E1306C]/15 border border-[#E1306C]/40 hover:border-[#E1306C] hover:bg-[#E1306C]/30 hover:shadow-[0_0_12px_rgba(225,48,108,0.4)] transition-all duration-300"
-                  title="Instagram: @ayush_.godiyal"
-                  target="_blank"
-                  rel="noreferrer"
-                >
-                  <Instagram className="w-4 h-4 text-[#E1306C] group-hover:scale-110 transition-transform" />
-                </a>
+                  ENGINEER WITH
+                </h1>
+                <h2 className="font-display uppercase text-5xl sm:text-7xl md:text-7xl lg:text-[105px] leading-none tracking-tight text-[#CCFF00]">
+                  <ScrambleText text={ROTATING_WORDS[currentWordIdx]} key={currentWordIdx} />
+                </h2>
               </div>
 
-              {/* Floating Settings Tool in Hero */}
-              <div className="absolute left-0 bottom-24 md:bottom-20 pointer-events-auto z-30 translate-x-[-20%]">
-                <button
-                  onClick={() => {
-                    setTempUrl(portraitUrl);
-                    setIsSettingOpen(true);
-                  }}
-                  className="p-2 bg-black/85 border border-white/10 hover:border-[#CCFF00] text-[#CCFF00] hover:bg-black/95 transition-all rounded-none flex items-center gap-1.5 text-[9px] font-mono tracking-widest"
-                  title="Configure Custom Portrait Image Link"
-                >
-                  <Settings className="w-3.5 h-3.5 animate-spin-slow" />
-                  PORTRAIT_CFG
-                </button>
+              {/* Typewriter bio */}
+              <div className="max-w-lg md:max-w-xl mx-auto lg:mx-0 min-h-[64px]">
+                <AnimatePresence mode="wait">
+                  <motion.p
+                    key={bioKey}
+                    variants={bioContainerVariants}
+                    initial="hidden"
+                    animate="visible"
+                    exit="hidden"
+                    className={`text-xs sm:text-sm font-sans leading-relaxed tracking-wide ${
+                      isDarkMode ? "text-white/80" : "text-black/80"
+                    }`}
+                  >
+                    {bioLetters.map((char, index) => (
+                      <motion.span key={index} variants={bioLetterVariants}>
+                        {char}
+                      </motion.span>
+                    ))}
+                  </motion.p>
+                </AnimatePresence>
               </div>
             </div>
+
+            {/* Portrait Image Layer (Normal flex flow on mobile & tablet, Absolute on Laptop/Desktop) */}
+            <div className="relative lg:absolute lg:right-4 xl:right-12 lg:bottom-12 xl:bottom-16 z-30 pointer-events-auto flex flex-col items-center justify-end w-full lg:w-auto">
+              <div className="relative flex flex-col items-center overflow-visible pb-4 lg:pb-0">
+                <img
+                  src={portraitUrl}
+                  alt="Ayush Godiyal Model"
+                  referrerPolicy="no-referrer"
+                  className={`h-[28vh] sm:h-[32vh] md:h-[38vh] lg:h-[50vh] xl:h-[52vh] max-h-[350px] lg:max-h-[550px] object-contain transition-transform duration-700 ease-out select-none cursor-pointer scale-[1.01] hover:scale-[1.04] ${
+                    isDarkMode
+                      ? "brightness-95 contrast-125 drop-shadow-[0_15px_30px_rgba(0,0,0,0.65)]"
+                      : "brightness-105 contrast-110 drop-shadow-[0_15px_30px_rgba(0,0,0,0.1)]"
+                  }`}
+                  onError={(e) => {
+                    // Fallback if user's custom URL fails
+                    e.currentTarget.src = "https://lh3.googleusercontent.com/d/18cU7ked8bXFj--Zt_sWEpGlOdO823fyE=w1000";
+                  }}
+                />
+
+                {/* Social Media Handles under Photo */}
+                <div className="mt-4 flex items-center justify-center gap-3 z-20">
+                  <a
+                    href="mailto:ayushgodiyal40@gmail.com"
+                    className="group flex items-center justify-center w-9 h-9 rounded-full bg-[#EA4335]/15 border border-[#EA4335]/40 hover:border-[#EA4335] hover:bg-[#EA4335]/30 hover:shadow-[0_0_12px_rgba(234,67,53,0.4)] transition-all duration-300"
+                    title="Email: ayushgodiyal40@gmail.com"
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    <Mail className="w-4 h-4 text-[#EA4335] group-hover:scale-110 transition-transform" />
+                  </a>
+                  <a
+                    href="https://github.com/ayushgodiyal40"
+                    className="group flex items-center justify-center w-9 h-9 rounded-full bg-white/15 border border-white/40 hover:border-white hover:bg-white/30 hover:shadow-[0_0_12px_rgba(255,255,255,0.4)] transition-all duration-300"
+                    title="GitHub: ayushgodiyal40"
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    <Github className="w-4 h-4 text-white group-hover:scale-110 transition-transform" />
+                  </a>
+                  <a
+                    href="https://www.linkedin.com/in/ayush-godiyal-0b99a4285/"
+                    className="group flex items-center justify-center w-9 h-9 rounded-full bg-[#0077B5]/15 border border-[#0077B5]/40 hover:border-[#0077B5] hover:bg-[#0077B5]/30 hover:shadow-[0_0_12px_rgba(0,119,181,0.4)] transition-all duration-300"
+                    title="LinkedIn: Ayush Godiyal"
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    <Linkedin className="w-4 h-4 text-[#0077B5] group-hover:scale-110 transition-transform" />
+                  </a>
+                  <a
+                    href="https://x.com/AyushGodiy31814"
+                    className="group flex items-center justify-center w-9 h-9 rounded-full bg-[#1DA1F2]/15 border border-[#1DA1F2]/40 hover:border-[#1DA1F2] hover:bg-[#1DA1F2]/30 hover:shadow-[0_0_12px_rgba(29,161,242,0.4)] transition-all duration-300"
+                    title="Twitter / X: @AyushGodiy31814"
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    <Twitter className="w-4 h-4 text-[#1DA1F2] group-hover:scale-110 transition-transform" />
+                  </a>
+                  <a
+                    href="https://www.instagram.com/ayush_.godiyal/"
+                    className="group flex items-center justify-center w-9 h-9 rounded-full bg-[#E1306C]/15 border border-[#E1306C]/40 hover:border-[#E1306C] hover:bg-[#E1306C]/30 hover:shadow-[0_0_12px_rgba(225,48,108,0.4)] transition-all duration-300"
+                    title="Instagram: @ayush_.godiyal"
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    <Instagram className="w-4 h-4 text-[#E1306C] group-hover:scale-110 transition-transform" />
+                  </a>
+                </div>
+
+                {/* Floating Settings Tool in Hero */}
+                <div className="relative mt-3 lg:mt-0 lg:absolute lg:left-0 lg:bottom-24 xl:bottom-20 z-30 lg:-translate-x-[20%]">
+                  <button
+                    onClick={() => {
+                      setTempUrl(portraitUrl);
+                      setIsSettingOpen(true);
+                    }}
+                    className="p-2 bg-black/85 border border-white/10 hover:border-[#CCFF00] text-[#CCFF00] hover:bg-black/95 transition-all rounded-none flex items-center gap-1.5 text-[9px] font-mono tracking-widest"
+                    title="Configure Custom Portrait Image Link"
+                  >
+                    <Settings className="w-3.5 h-3.5 animate-spin-slow" />
+                    PORTRAIT_CFG
+                  </button>
+                </div>
+              </div>
+            </div>
+
           </div>
 
-          {/* Headline and bio content cards */}
-          <div className="flex-1 flex flex-col justify-center max-w-5xl mx-auto w-full pt-12 md:pt-16 pb-24 z-20 relative">
-            <div className="space-y-1 text-center md:text-left select-text md:max-w-[55%] lg:max-w-[60%]">
-              <h1
-                className="font-display uppercase text-4xl sm:text-6xl md:text-6xl lg:text-[80px] leading-none tracking-tighter"
-                style={{
-                  WebkitTextStroke: isDarkMode ? "1.5px rgba(255, 255, 255, 0.9)" : "1.5px rgba(0, 0, 0, 0.9)",
-                  color: "transparent",
-                }}
-              >
-                ENGINEER WITH
-              </h1>
-              <h2 className="font-display uppercase text-5xl sm:text-7xl md:text-7xl lg:text-[105px] leading-none tracking-tight text-[#CCFF00]">
-                <ScrambleText text={ROTATING_WORDS[currentWordIdx]} key={currentWordIdx} />
-              </h2>
-            </div>
-
-            {/* Typewriter bio */}
-            <div className="mt-8 md:mt-12 max-w-lg md:max-w-xl mx-auto md:mx-0 text-center md:text-left select-text min-h-[64px]">
-              <AnimatePresence mode="wait">
-                <motion.p
-                  key={bioKey}
-                  variants={bioContainerVariants}
-                  initial="hidden"
-                  animate="visible"
-                  exit="hidden"
-                  className={`text-xs sm:text-sm font-sans leading-relaxed tracking-wide ${
-                    isDarkMode ? "text-white/80" : "text-black/80"
-                  }`}
-                >
-                  {bioLetters.map((char, index) => (
-                    <motion.span key={index} variants={bioLetterVariants}>
-                      {char}
-                    </motion.span>
-                  ))}
-                </motion.p>
-              </AnimatePresence>
-            </div>
-
-            {/* Scrolling Navigation hint */}
-            <div className="absolute inset-x-0 bottom-4 flex flex-col items-center justify-center gap-1 cursor-pointer" onClick={() => scrollToSection(skillsRef)}>
-              <span className="text-[10px] font-mono text-white/30 tracking-widest uppercase">SCROLL FOR SPECIFICATIONS</span>
-              <ChevronDown className="w-4 h-4 text-[#CCFF00] animate-bounce" />
-            </div>
+          {/* Scrolling Navigation hint */}
+          <div className="relative z-20 flex flex-col items-center justify-center gap-1 cursor-pointer pt-4 pb-2" onClick={() => scrollToSection(skillsRef)}>
+            <span className="text-[10px] font-mono text-white/30 tracking-widest uppercase">SCROLL FOR SPECIFICATIONS</span>
+            <ChevronDown className="w-4 h-4 text-[#CCFF00] animate-bounce" />
           </div>
         </section>
 
