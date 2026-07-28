@@ -30,6 +30,7 @@ export interface TimelineItem {
   type: "experience" | "education" | "certificate";
   tags: string[];
   verificationUrl?: string;
+  marksheets?: { term: string; url: string }[];
 }
 
 export interface ChatMessage {

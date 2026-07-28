@@ -5,7 +5,7 @@
 
 import { useState } from "react";
 import { TimelineItem } from "../types";
-import { Briefcase, GraduationCap, Award, Search, Calendar, ChevronRight } from "lucide-react";
+import { Briefcase, GraduationCap, Award, Search, Calendar, ChevronRight, FileText, ExternalLink } from "lucide-react";
 import { motion, AnimatePresence } from "motion/react";
 
 const INITIAL_TIMELINE: TimelineItem[] = [
@@ -35,6 +35,14 @@ const INITIAL_TIMELINE: TimelineItem[] = [
     description: "CGPA: 7.94/10.0 (After Completion of 6th Semester). Pursuing specialized studies in software engineering, advanced compiler design, database query optimizations, and distributed services.",
     type: "education",
     tags: ["Academics", "OOPS", "Data Structures and Algorithms", "Compiler Design", "DBMS","Operating System","Computer Networks"],
+    marksheets: [
+      { term: "Semester 1", url: "https://drive.google.com/file/d/1agHIgKZeCyQtRtUNvgTzKjXywavrAcJ5/view?usp=sharing" },
+      { term: "Semester 2", url: "https://drive.google.com/file/d/1AhyYjd9eyxYucGg7zrPuIHcIVCs0himC/view?usp=sharing" },
+      { term: "Semester 3", url: "https://drive.google.com/file/d/19XtM4VISq8nyU_D932vjb1pcuFRfEEtv/view?usp=sharing" },
+      { term: "Semester 4", url: "https://drive.google.com/file/d/14dgCGo7HvsclKwVeOxXdEtkD0RfsG1id/view?usp=sharing" },
+      { term: "Semester 5", url: "https://drive.google.com/file/d/10DE8_-xNxkthm8-tQSIeGLHpteE32z2b/view?usp=sharing" },
+      { term: "Semester 6", url: "https://drive.google.com/file/d/10vkyeHoXzXt_nnAcI_Q-kLiIr65Oz1nq/view?usp=sharing" },
+    ],
   },
   {
     id: "cert-1",
@@ -226,6 +234,32 @@ export default function Timeline() {
                       >
                         VERIFY CREDENTIAL ↗
                       </a>
+                    </div>
+                  )}
+
+                  {item.marksheets && item.marksheets.length > 0 && (
+                    <div className="mt-4 pt-3.5 border-t border-white/10" onClick={(e) => e.stopPropagation()}>
+                      <div className="flex items-center gap-1.5 mb-2.5">
+                        <FileText className="w-3.5 h-3.5 text-[#CCFF00]" />
+                        <span className="text-[11px] font-mono font-semibold tracking-wider text-white uppercase">
+                          SEMESTER MARKSHEETS & ACADEMIC TRANSCRIPTS
+                        </span>
+                      </div>
+                      <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
+                        {item.marksheets.map((ms) => (
+                          <a
+                            key={ms.term}
+                            href={ms.url}
+                            target="_blank"
+                            rel="noreferrer"
+                            className="flex items-center justify-between gap-1.5 px-3 py-2 bg-white/5 border border-white/10 hover:border-[#CCFF00] hover:bg-[#CCFF00]/10 hover:text-[#CCFF00] text-white/80 text-xs font-mono transition-all group/ms"
+                            title={`Open ${ms.term} Marksheet`}
+                          >
+                            <span className="font-medium">{ms.term}</span>
+                            <ExternalLink className="w-3 h-3 text-white/40 group-hover/ms:text-[#CCFF00] transition-colors shrink-0" />
+                          </a>
+                        ))}
+                      </div>
                     </div>
                   )}
 
